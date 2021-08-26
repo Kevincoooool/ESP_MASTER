@@ -1,0 +1,13 @@
+[mapping:dsp]
+archive: libesp-dsp.a
+entries: 
+    * (noflash)
+    * (noflash_data)
+    * (noflash_text)
+
+[mapping:dsp_test]
+archive: libesp-dsp_test.a
+entries:
+    * (noflash)
+    * (noflash_data)
+    * (noflash_text)

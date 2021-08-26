@@ -1,0 +1,98 @@
+<!--
+ * @Descripttion :  
+ * @version      :  
+ * @Author       : Kevincoooool
+ * @Date         : 2021-05-20 09:05:33
+ * @LastEditors  : Kevincoooool
+ * @LastEditTime : 2021-08-17 16:16:14
+ * @FilePath     : \esp-idf\pro\KSDIY_ESPCAM\components\web\upload_script.html
+-->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</script>
+<style>
+    h1 {
+        margin-top: 5%;
+        margin-bottom: 5%;
+    }
+
+    body {
+        text-align: center;
+    }
+
+    table {
+        width: 100%;
+        height: 100%;
+        margin: 5% auto;
+    }
+
+    @media (max-width: 500px) {
+        h1 {
+            margin-top: 10%;
+            margin-bottom: 10%;
+        }
+
+        body {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            height: 100%;
+            margin: 20% auto;
+        }
+    }
+
+</style>
+</head>
+
+<body background="http://pic1.win4000.com/mobile/9/59701ad479f6a.jpg">
+    <h1>ESP32文件管理</h1>
+    <dev> <input id="newfile" type="file" style="width:50%;"><button id="upload" type="button"
+            onclick="upload()">上传</button>
+    </dev>
+    <script>
+        var filePath;
+
+        function upload() {
+            var filePath = document.getElementById("newfile").files[0].name;
+            var upload_path = "/upload/" + filePath;
+            var fileInput = document.getElementById("newfile").files;
+            var MAX_FILE_SIZE = 200 * 1024;
+            var MAX_FILE_SIZE_STR = "200KB";
+            if (fileInput.length == 0) {
+                alert("No file selected!");
+            } else if (filePath.length == 0) {
+                alert("File path on server is not set!");
+            } else if (filePath.indexOf(' ') >= 0) {
+                alert("File path on server cannot have spaces!");
+            } else if (filePath[filePath.length - 1] == '/') {
+                alert("File name not specified after path!");
+            } else if (fileInput[0].size > 1000000 * 1024) {
+                alert("File size must be less than 1000KB!");
+            } else {
+                document.getElementById("newfile").disabled = true;
+                document.getElementById("upload").disabled = true;
+                var file = fileInput[0];
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (xhttp.readyState == 4) {
+                        if (xhttp.status == 200) {
+                            document.open();
+                            document.write(xhttp.responseText);
+                            document.close();
+                        } else if (xhttp.status == 0) {
+                            alert("Server closed the connection abruptly!");
+                            location.reload()
+                        } else {
+                            alert(xhttp.status + " Error!\n" + xhttp.responseText);
+                            location.reload()
+                        }
+                    }
+                };
+                xhttp.open("POST", upload_path, true);
+                xhttp.send(file);
+            }
+        }
+
+    </script>

@@ -1,0 +1,76 @@
+choice CONV_IMPL
+    bool "Convolution Implementation"
+    default XTENSA_IMPL
+      
+config C_IMPL
+	bool "ANSI Implementation for general platforms"
+
+config XTENSA_IMPL
+	bool "Xtensa Implementation for ESP"
+	
+endchoice
+
+
+
+menu "ESP-FACE Configuration"
+
+    choice DETECTION_MODEL
+        bool "Detection Model"
+        default MTMN_LITE_QUANT
+
+        config MTMN_LITE_QUANT
+            bool "MTMN lite in quantization"
+        
+        config MTMN_LITE_FLOAT
+            bool "MTMN lite in float"
+
+        config MTMN_HEAVY_QUANT
+            bool "MTMN heavy in quantization"
+    endchoice
+
+    choice RECOGNITION_MODEL
+        bool "Recognition Model"
+        default MFN56_1X
+        config FRMN
+            bool "FRMN"
+        config MFN56_1X
+            bool "MFN56_1X"
+        config MFN56_2X
+            bool "MFN56_2X"
+        config MFN56_3X
+            bool "MFN56_3X"
+        config MFN56_4X
+            bool "MFN56_4X"
+    endchoice
+
+    menu "Object Detection"
+        config DETECT_WITH_LANDMARK
+            bool "With landmark"
+            default n
+    endmenu
+
+    menu "Pose Estimation"
+    
+        choice HAND_DETECTION_MODEL
+            bool "Hand Detection Model"
+            default HD_NANO1
+
+            config HD_NANO1
+                bool "HAND DETECTION NANO1"
+            config HD_LITE1
+                bool "HAND DETECTION LITE1"
+        endchoice
+
+        choice HAND_POSE_ESTIMATION_MODEL
+            bool "Hand Pose Estimation Model"
+            default HP_NANO1
+
+            config HP_NANO1
+                bool "HAND POSE_ESTIMATION NANO1"
+            config HP_LITE1
+                bool "HAND POSE_ESTIMATION LITE1"
+        endchoice
+
+    endmenu
+
+endmenu

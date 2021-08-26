@@ -1,0 +1,98 @@
+stages:
+  - build
+  - deploy
+
+image: $CI_DOCKER_REGISTRY/esp32-ci-env:latest
+
+variables:
+  # System environment
+
+  # Common parameters for the 'make' during CI tests
+  MAKEFLAGS: "-j5 --no-keep-going"
+
+  # GitLab-CI environment
+  GET_SOURCES_ATTEMPTS: "10"
+  ARTIFACT_DOWNLOAD_ATTEMPTS: "10"
+  GIT_SUBMODULE_STRATEGY: none
+
+  ESP_IDF_GIT: "https://gitlab-ci-token:${CI_JOB_TOKEN}@${GITLAB_HTTPS_SERVER}/espressif/esp-idf.git"
+
+.setup_idf_tools: &setup_idf_tools |
+  tools/idf_tools.py --non-interactive install && eval "$(tools/idf_tools.py --non-interactive export)" || exit 1
+
+.add_gh_key_remote: &add_gh_key_remote |
+  command -v ssh-agent >/dev/null || exit 1
+  eval $(ssh-agent -s)
+  printf '%s\n' "${GH_PUSH_KEY}" | tr -d '\r' | ssh-add - > /dev/null
+  mkdir -p ~/.ssh && chmod 700 ~/.ssh
+  [[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config || ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+  git remote remove github || true
+  git remote add github ${GH_PUSH_REPO}
+
+after_script:
+  # Just for cleaning space, no other causes
+  - git clean -ffdx
+
+build:
+  stage: build
+  tags:
+    - build
+  script:
+    # Get ESP-IDF
+    - git clone ${ESP_IDF_GIT} esp-idf
+    - pushd esp-idf
+    # Non-recursive getting its submodules
+    - git submodule update --init
+    - export IDF_PATH=$PWD
+    - *setup_idf_tools
+    - popd
+
+    # Create a copy of the project in "esp-dsp" directory.
+    # This is needed because CMake build system can not build a component
+    # when ESP-IDF directory is inside the component.
+    # After cloning, we will have two directories at the same level: "esp-idf" and "esp-dsp"
+    - git clone $PWD esp-dsp
+    - cd esp-dsp
+
+    # Build test app by both Makefiles and CMake ways
+    - pushd test_app
+    - make defconfig && make
+    - rm -rf build
+    - idf.py build
+    - popd
+
+    # Build examples
+    - ./build_examples.sh
+
+build_docs:
+  stage: build
+  tags:
+    - build_docs
+  artifacts:
+    when: always
+    paths:
+      - docs/doxygen-warning-log.txt
+      - docs/sphinx-warning-log.txt
+      - docs/_build/html
+    expire_in: 1 day
+  # No cleaning when the artifacts
+  after_script: []
+  script:
+    - cd docs
+    - make html
+    - ./check_doc_warnings.sh
+
+push_master_to_github:
+  stage: deploy
+  tags:
+    - deploy
+  only:
+    - master
+    - /^release\/v/
+    - /^v\d+\.\d+(\.\d+)?($|-)/
+  when: on_success
+  script:
+    # Just for a helper script
+    - git clone --depth 1 ${ESP_IDF_GIT} esp-idf
+    - *add_gh_key_remote
+    - esp-idf/tools/ci/push_to_github.sh

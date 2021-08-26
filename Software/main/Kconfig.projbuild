@@ -1,0 +1,105 @@
+menu "ST7789 Configuration"
+
+	config WIDTH
+		int "SCREEN WIDTH"
+		range 0 999
+		default 240
+		help
+			The width resolution of the screen.
+
+	config HEIGHT
+		int "SCREEN HEIGHT"
+		range 0 999
+		default 240
+		help
+			The height resolution of the screen.
+
+	config OFFSETX
+		int "GRAM X OFFSET"
+		range 0 99
+		default 0
+		help
+			When your TFT have offset(X), set it.
+
+	config OFFSETY
+		int "GRAM Y OFFSET"
+		range 0 99
+		default 0
+		help
+			When your TFT have offset(Y), set it.
+
+	config MOSI_GPIO
+		int "MOSI GPIO number"
+		range 0 46
+		default 23 if IDF_TARGET_ESP32
+		default 35 if IDF_TARGET_ESP32S2
+		help
+			GPIO number (IOxx) to SPI MOSI.
+			Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used to MOSI.
+			On the ESP32, GPIOs 35-39 are input-only so cannot be used as outputs.
+			On the ESP32-S2, GPIO 46 is input-only so cannot be used as outputs.
+
+	config SCLK_GPIO
+		int "SCLK GPIO number"
+		range 0 46
+		default 18 if IDF_TARGET_ESP32
+		default 36 if IDF_TARGET_ESP32S2
+		help
+			GPIO number (IOxx) to SPI SCLK.
+			Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used to SCLK.
+			On the ESP32, GPIOs 35-39 are input-only so cannot be used as outputs.
+			On the ESP32-S2, GPIO 46 is input-only so cannot be used as outputs.
+
+	config CS_GPIO
+		int "CS GPIO number"
+		range -1 46
+		default -1 if IDF_TARGET_ESP32
+		default 34 if IDF_TARGET_ESP32S2
+		help
+			GPIO number (IOxx) to SPI CS.
+			When it is -1, CS isn't performed.
+			Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used to CS.
+			On the ESP32, GPIOs 35-39 are input-only so cannot be used as outputs.
+			On the ESP32-S2, GPIO 46 is input-only so cannot be used as outputs.
+
+	config DC_GPIO
+		int "DC GPIO number"
+		range 0 46
+		default 27 if IDF_TARGET_ESP32
+		default 37 if IDF_TARGET_ESP32S2
+		help
+			GPIO number (IOxx) to SPI DC.
+			Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used to DC.
+			On the ESP32, GPIOs 35-39 are input-only so cannot be used as outputs.
+			On the ESP32-S2, GPIO 46 is input-only so cannot be used as outputs.
+
+	config RESET_GPIO
+		int "RESET GPIO number"
+		range 0 46
+		default 33 if IDF_TARGET_ESP32
+		default 38 if IDF_TARGET_ESP32S2
+		help
+			GPIO number (IOxx) to RESET.
+			Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used to RESET.
+			On the ESP32, GPIOs 35-39 are input-only so cannot be used as outputs.
+			On the ESP32-S2, GPIO 46 is input-only so cannot be used as outputs.
+
+	config BL_GPIO
+		int "BACKLIGHT GPIO number"
+		range -1 46
+		default 32 if IDF_TARGET_ESP32
+		default 39 if IDF_TARGET_ESP32S2
+		help
+			GPIO number (IOxx) to BACKLIGHT.
+			When it is -1, BACKLIGHT isn't performed.
+			Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used to BACKLIGHT.
+			On the ESP32, GPIOs 35-39 are input-only so cannot be used as outputs.
+			On the ESP32-S2, GPIO 46 is input-only so cannot be used as outputs.
+
+	config INVERSION
+		bool "Enable Display Inversion"
+		default false
+		help
+			Enable Display Inversion.
+
+endmenu

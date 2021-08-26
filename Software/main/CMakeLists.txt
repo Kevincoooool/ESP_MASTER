@@ -1,0 +1,60 @@
+set(COMPONENT_SRCS 
+    "app_main.c"
+    "app_face.c"
+    "app_httpd.c"
+    "page/spage.c"
+    "page/page_start.c"
+    "page/page_menu.c"
+    "page/page_home.c"
+    "page/page_tab.c"
+    "page/page_calendar.c"
+    "page/page_wakeup.c"
+    "page/page_cam.c"
+    "page/app_anim.c"
+    "page/page_fft.c"
+    "page/page_imu.c"
+    "page/page_daily.c"
+    "page/page_baiduai.c"
+	"page/page_about.c"
+    "page/page_music.c"
+    "page/page_game_2048.c"
+    "page/page_game_snake.c"
+    "baidu/base64.c"
+    "baidu/urlcode.c"
+    "EasyTracer/EasyTracer.c"
+    "fft_soft/fft.c"
+    "app_wifi.c"
+    "ringbuf.c"
+    "EspAudioAlloc.c"
+    "app_speech_recsrc.c"
+    "app_speech_wakeup.c"
+    "screen/st7789.c"
+    "screen/fontx.c"
+    "screen/pngle.c"
+    "app_camera.c"
+    "qr_recoginize.c"
+    "irTask.c"
+    "mynvs.c"
+    "button/button.c"
+    "button/bsp_button.c"
+    "ir_decoder/ir_ac_apply.c"
+    "ir_decoder/ir_ac_binary_parse.c" 
+    "ir_decoder/ir_ac_build_frame.c" 
+    "ir_decoder/ir_ac_parse_forbidden_info.c" 
+    "ir_decoder/ir_decode.c" 
+    "ir_decoder/ir_tv_control.c" 
+    "ir_decoder/ir_utils.c" 
+    "ir_decoder/ir_ac_control.c" 
+    "ir_decoder/ir_ac_parse_frame_info.c" 
+    "ir_decoder/ir_ac_parse_parameter.c" 
+    )
+set(COMPONENT_ADD_INCLUDEDIRS  "." "screen" "page" "baidu" "EasyTracer" "fft_soft" "button" "ir_decoder/include")
+
+set(COMPONENT_EMBED_FILES
+    "www/index.html.gz"
+    
+    )
+
+register_component()
+
+spiffs_create_partition_image(storage ../spiffs FLASH_IN_PROJECT)
