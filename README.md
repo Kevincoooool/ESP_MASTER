@@ -1,3 +1,12 @@
+<!--
+ * @Descripttion :  
+ * @version      :  
+ * @Author       : Kevincoooool
+ * @Date         : 2021-08-26 16:24:48
+ * @LastEditors  : Kevincoooool
+ * @LastEditTime : 2021-08-27 17:57:50
+ * @FilePath     : \ESP_MASTER\README.md
+-->
 # ESP_MASTER
 
 <img src="https://komarev.com/ghpvc/?username=ESPMASTER" alt="ESPMASTER" />
@@ -38,7 +47,7 @@ This is a comprehensive project that combines the powerful computing capabilitie
 - ESP32-D0WD-V3/ESP-WROVER-B
 - PSRAM : 4Mb
 - Flash : 16Mb
-- Mic on Board
+- Mic on Board  MSM261S4030H0
 - Three ADC Buttons in one gpio
 - IMU : MPU6050
 - SENSOR : OV2640/OV7725/OV5640/OV7670
@@ -52,6 +61,23 @@ This is a comprehensive project that combines the powerful computing capabilitie
 ## Font
 
 - 阿里汉仪智能黑体
+## Pic:
+
+<img src="https://whycan.com/files/members/4115/%E6%AD%A3%E9%9D%A2.jpg" height="500px" width="800px" title="正面" style="display:inherit;"/> 
+
+<img src="https://whycan.com/files/members/4115/1_20210826-1733.png" height="500px" width="800px" title="反面" style="display:inherit;"/> 
+
+<img src="https://whycan.com/files/members/4115/9.png" height="500px" width="800px" title="反面" style="display:inherit;"/> 
+
+<img src="https://whycan.com/files/members/4115/4_20210826-1734.png" height="500px" width="800px" title="反面" style="display:inherit;"/> 
+
+<img src="https://whycan.com/files/members/4115/5.png" height="500px" width="800px" title="反面" style="display:inherit;"/> 
+
+<img src="https://whycan.com/files/members/4115/7.png" height="500px" width="800px" title="反面" style="display:inherit;"/> 
+
+<img src="https://whycan.com/files/members/4115/8.png" height="500px" width="800px" title="反面" style="display:inherit;"/> 
+
+
 
 ## Thanks
 	 本项目参考了较多开源项目，非常感谢以下开源作者提供了很多思路：
@@ -62,4 +88,4 @@ This is a comprehensive project that combines the powerful computing capabilitie
 ## 禁止商用
 
 本项目开源协议为  CC-BY-NC-SA 3.0（知识共享-署名-非商业性使用-相同方式共享 3.0）
-仅供个人学习使用
+仅供个人学习使用（防止有人放到闲鱼倒卖资料）
