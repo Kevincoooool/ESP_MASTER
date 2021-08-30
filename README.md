@@ -1,15 +1,11 @@
-<!--
- * @Descripttion :  
- * @version      :  
- * @Author       : Kevincoooool
- * @Date         : 2021-08-26 16:24:48
- * @LastEditors  : Kevincoooool
- * @LastEditTime : 2021-08-27 17:57:50
- * @FilePath     : \ESP_MASTER\README.md
--->
 # ESP_MASTER
 
 <img src="https://komarev.com/ghpvc/?username=ESPMASTER" alt="ESPMASTER" />
+
+* 视频介绍：https://www.bilibili.com/video/BV1SM4y1V7Yb
+
+<iframe src="//player.bilibili.com/player.html?aid=932590303&bvid=BV1SM4y1V7Yb&cid=397114463&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+
 
 This is a comprehensive project that combines the powerful computing capabilities of ESP32, with functions such as speech recognition, image recognition, GUI learning, and FFT music spectrum. It is suitable for learning image recognition algorithms and making LVGL-based UI interfaces.
 
@@ -88,4 +84,5 @@ This is a comprehensive project that combines the powerful computing capabilitie
 ## 禁止商用
 
 本项目开源协议为  CC-BY-NC-SA 3.0（知识共享-署名-非商业性使用-相同方式共享 3.0）
+
 仅供个人学习使用（防止有人放到闲鱼倒卖资料）
