@@ -4,8 +4,8 @@
  * @Author       : Kevincoooool
  * @Date         : 2021-07-02 09:59:54
  * @LastEditors  : Kevincoooool
- * @LastEditTime : 2021-07-06 14:00:22
- * @FilePath     : \esp-idf\pro\KSDIY_ESPCAM\main\page\page_menu.h
+ * @LastEditTime : 2021-09-18 10:40:29
+ * @FilePath     : \esp-idf\pro\ESP_MASTER\Software\main\page\page_menu.h
  */
 /*
  * @Descripttion :  
@@ -69,21 +69,21 @@ typedef enum
 
 typedef enum
 {
-	Disp_Home = -2,
-	Disp_Menu = -1,
-	Disp_Cam = 0,
-	Disp_Color,
-	Disp_Face,
-	Disp_Baidu,
-	Disp_IMU,
-	Disp_FFT,
-	Disp_Daily,
-	Disp_Game_2048,
-	Disp_Game_Snake,
-	Disp_Music,
-	Disp_Calendar,
-	Disp_Setting,
-	Disp_About,
+	Disp_Home = -2,//主页
+	Disp_Menu = -1,//菜单选择界面
+	Disp_Cam = 0,//摄像头显示
+	Disp_Color,//颜色识别
+	Disp_Face,//人脸识别
+	Disp_Baidu,//百度AI 物体和文字识别
+	Disp_IMU,//陀螺仪
+	Disp_FFT,//音乐频谱
+	Disp_Daily,//每日一句
+	Disp_Game_2048,//2048游戏
+	Disp_Game_Snake,//贪吃蛇游戏
+	Disp_Music,//音乐播放界面 采用lvgl的music demo
+	Disp_Calendar,//日历
+	Disp_Setting,//设置界面 可设置摄像头翻转   空调类型选择
+	Disp_About,//关于介绍
 } Display_Page; //当前界面枚举
 
 typedef struct

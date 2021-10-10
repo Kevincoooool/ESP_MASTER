@@ -4,8 +4,8 @@
  * @Author       : Kevincoooool
  * @Date         : 2021-06-05 10:13:51
  * @LastEditors  : Kevincoooool
- * @LastEditTime : 2021-08-17 17:37:01
- * @FilePath     : \esp-idf\pro\KSDIY_ESPCAM\main\page\page_imu.c
+ * @LastEditTime : 2021-09-30 16:40:07
+ * @FilePath     : \esp_master\main\page\page_imu.c
  */
 #include "page_imu.h"
 #include "page_start.h"
@@ -87,11 +87,11 @@ void Imu_Task(void *pvParameters)
 			Acc_mmss.x = accel.accel_x * 2.392615f; //   /65535 * 16*9800; +-8G
 			Acc_mmss.y = accel.accel_y * 2.392615f;
 			Acc_mmss.z = accel.accel_z * 2.392615f;
-			printf("ax:%7.2f;ay:%7.2f;az:%7.2f", Acc_mmss.x, Acc_mmss.y, Acc_mmss.z);
-			printf("gx:%7.2f;gy:%7.2f;gz:%7.2f", Gyro_deg.x, Gyro_deg.y, Gyro_deg.z);
+			// printf("ax:%7.2f;ay:%7.2f;az:%7.2f", Acc_mmss.x, Acc_mmss.y, Acc_mmss.z);
+			// printf("gx:%7.2f;gy:%7.2f;gz:%7.2f", Gyro_deg.x, Gyro_deg.y, Gyro_deg.z);
 			IMU_update(0.005f, &Gyro_deg, &Acc_mmss, &imu_data); //姿态解算
 
-			printf("pitch:%3.2f, yaw:%3.2f, roll:%3.2f\n", imu_data.pit, imu_data.yaw, imu_data.rol);
+			// printf("pitch:%3.2f, yaw:%3.2f, roll:%3.2f\n", imu_data.pit, imu_data.yaw, imu_data.rol);
 			lv_chart_set_next(chart_imu, series, imu_data.pit);
 			lv_chart_set_next(chart_imu, series1, imu_data.rol);
 			// vTaskDelayUntil(&xLastWakeTime, (2 / portTICK_RATE_MS));
@@ -228,6 +228,7 @@ void page_imu_load()
 	);
 	ANIEND
 	xTaskCreatePinnedToCore(&Imu_Task, "Imu_Task", 1024 * 3, NULL, 17, NULL, 0);
+	imu_en = 1;
 }
 void page_imu_end(void)
 {

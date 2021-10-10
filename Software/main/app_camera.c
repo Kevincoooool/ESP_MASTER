@@ -4,8 +4,8 @@
  * @Author       : Kevincoooool
  * @Date         : 2021-05-25 09:20:06
  * @LastEditors  : Kevincoooool
- * @LastEditTime : 2021-07-08 13:41:37
- * @FilePath     : \esp-idf\pro\KSDIY_ESPCAM\main\app_camera.c
+ * @LastEditTime : 2021-10-06 14:35:06
+ * @FilePath     : \esp_master\main\app_camera.c
  */
 #include "app_camera.h"
 #include "spage.h"
@@ -48,7 +48,7 @@ void app_camera_init()
     config.xclk_freq_hz = XCLK_FREQ;
     config.pixel_format = CAMERA_PIXEL_FORMAT;
     config.frame_size = CAMERA_FRAME_SIZE;
-    config.jpeg_quality = 20;
+    config.jpeg_quality = 10;
     config.fb_count = 1; //调大了 LVGL刷屏会撕裂
 
     // camera init

@@ -214,6 +214,7 @@ bool lvgl_spi_driver_init(int host,
     spi_bus_config_t buscfg = {
         .miso_io_num = miso_pin,
 	.mosi_io_num = mosi_pin,
+    
 	.sclk_io_num = sclk_pin,
 	.quadwp_io_num = quadwp_pin,
 	.quadhd_io_num = quadhd_pin,

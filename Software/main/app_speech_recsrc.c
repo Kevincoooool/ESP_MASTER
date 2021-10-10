@@ -4,8 +4,8 @@
  * @Author       : Kevincoooool
  * @Date         : 2021-05-25 16:03:28
  * @LastEditors  : Kevincoooool
- * @LastEditTime : 2021-07-08 15:14:39
- * @FilePath     : \esp-idf\pro\KSDIY_ESPCAM\main\app_speech_recsrc.c
+ * @LastEditTime : 2021-10-06 14:44:18
+ * @FilePath     : \esp_master\main\app_speech_recsrc.c
  */
 #include <stdio.h>
 #include <stdlib.h>

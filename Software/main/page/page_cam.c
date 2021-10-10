@@ -4,8 +4,8 @@
  * @Author       : Kevincoooool
  * @Date         : 2021-06-05 10:13:51
  * @LastEditors  : Kevincoooool
- * @LastEditTime : 2021-08-20 17:41:49
- * @FilePath     : \esp-idf\pro\KSDIY_ESPCAM\main\page\page_cam.c
+ * @LastEditTime : 2021-10-09 14:55:12
+ * @FilePath     : \esp_master\main\page\page_cam.c
  */
 #include "page_cam.h"
 #include "page_start.h"
@@ -48,7 +48,7 @@ void Cam_Task(void *pvParameters)
 
     // /* 入口处检测一次 */
     ESP_LOGI(TAG, "Run Run uxHighWaterMark = %d", uxTaskGetStackHighWaterMark(NULL));
-    FILE *fp = NULL;
+    // FILE *fp = NULL;
     portTickType xLastWakeTime;
 
     while (1)
@@ -186,7 +186,7 @@ void move_task_color(uint8_t move)
         break;
     }
 }
-void cam_init(void)
+void imgcam_init(void)
 {
 
     img_cam = lv_img_create(lv_scr_act(), NULL);
@@ -206,7 +206,7 @@ lv_task_t *task_cam;
 void page_cam_load()
 {
     app_camera_init();
-    cam_init();
+    imgcam_init();
     obj_add_anim(
         img_cam,                           //动画对象
         (lv_anim_exec_xcb_t)lv_obj_set_x,  //动画函数
@@ -216,12 +216,12 @@ void page_cam_load()
         lv_anim_path_linear                //动画特效:模拟弹性物体下落
     );
     ANIEND
-    xTaskCreatePinnedToCore(&Cam_Task, "Cam_Task", 1024 * 3, NULL, 18, NULL, 0);
+    xTaskCreatePinnedToCore(&Cam_Task, "Cam_Task", 1024 * 5, NULL, 14, NULL, 0);
 }
 void page_cam_end(void)
 {
     cam_en = 0, color_en = 0, face_en = 0;
-    vTaskDelay(200);
+    vTaskDelay(500);
     esp_camera_deinit();
     obj_add_anim(
         img_cam,                           //动画对象

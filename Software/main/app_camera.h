@@ -4,8 +4,8 @@
  * @Author       : Kevincoooool
  * @Date         : 2021-05-25 09:20:06
  * @LastEditors  : Kevincoooool
- * @LastEditTime : 2021-08-20 17:03:32
- * @FilePath     : \esp-idf\pro\KSDIY_ESPCAM\main\app_camera.h
+ * @LastEditTime : 2021-10-06 14:48:12
+ * @FilePath     : \esp_master\main\app_camera.h
  */
 #ifndef MATERIALS_CLASSIFIER_ESP_APP_CAMERA_ESP_H_
 #define MATERIALS_CLASSIFIER_ESP_APP_CAMERA_ESP_H_
