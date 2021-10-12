@@ -1442,13 +1442,14 @@ esp_err_t esp_camera_deinit()
     }
     dma_desc_deinit();
     camera_fb_deinit();
-
+    SCCB_Deinit();
     if(s_state->config.pin_xclk >= 0) {
       camera_disable_out_clock();
     }
     free(s_state);
     s_state = NULL;
     periph_module_disable(PERIPH_I2S0_MODULE);
+    gpio_uninstall_isr_service();
     return ESP_OK;
 }
 

@@ -4,8 +4,8 @@
  * @Author       : Kevincoooool
  * @Date         : 2021-06-04 16:13:33
  * @LastEditors  : Kevincoooool
- * @LastEditTime : 2021-07-08 14:29:20
- * @FilePath     : \esp-idf\pro\KSDIY_ESPCAM\main\app_face.c
+ * @LastEditTime : 2021-10-12 11:14:55
+ * @FilePath     : \esp-idf-v4.3.1\pro\esp_master\main\app_face.c
  */
 #include "app_face.h"
 #include "app_main.h"
@@ -397,9 +397,17 @@ void Face_DEC(void *arg)
         }
         else
         {
+            if (fb)
+            {
+                esp_camera_fb_return(fb);
+                free(fb);
+            }
+                
+            fb = NULL;
+            vTaskDelete(NULL);
             // img_dsc.data = 0;
             // vTaskDelay(1000 / portTICK_PERIOD_MS);
-            vTaskDelete(NULL);
+
         }
     }
 }

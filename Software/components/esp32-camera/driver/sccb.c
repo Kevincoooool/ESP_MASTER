@@ -54,7 +54,12 @@ int SCCB_Init(int pin_sda, int pin_scl)
     i2c_driver_install(SCCB_I2C_PORT, conf.mode, 0, 0, 0);
     return 0;
 }
-
+int SCCB_Deinit(void)
+{
+    
+    i2c_driver_delete(SCCB_I2C_PORT);
+    return 0;
+}
 uint8_t SCCB_Probe()
 {
     uint8_t slave_addr = 0x0;

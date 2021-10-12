@@ -4,7 +4,7 @@
  * @Author       : Kevincoooool
  * @Date         : 2021-06-05 10:13:51
  * @LastEditors  : Kevincoooool
- * @LastEditTime : 2021-10-09 14:55:12
+ * @LastEditTime : 2021-10-12 13:08:48
  * @FilePath     : \esp_master\main\page\page_cam.c
  */
 #include "page_cam.h"
@@ -55,68 +55,75 @@ void Cam_Task(void *pvParameters)
     {
         if (cam_en)
         {
-            static int64_t last_frame = 0;
-            if (!last_frame)
+            if (face_en == 0)
             {
-                last_frame = esp_timer_get_time();
-            }
-            fb = esp_camera_fb_get();
-            if (fb == NULL)
-            {
-                vTaskDelay(100);
-                ESP_LOGE(TAG, "Get image failed!");
-            }
-            else
-            {
-                if (Trace(&Condition[color_type], &Resu) && color_en == 1)
+                static int64_t last_frame = 0;
+                if (!last_frame)
                 {
-                    printf("x:%d y:%d w:%d h:%d ", Resu.x, Resu.y, Resu.w, Resu.h);
-                    if (Resu.x > 0 && Resu.y > 0)
-                    {
-                        draw_fillRect(fb, Resu.x - Resu.w / 2, Resu.y - Resu.h / 2, Resu.w, Resu.h);
-                    }
+                    last_frame = esp_timer_get_time();
                 }
-                // static uint16_t i = 0;
-                // if (i == 0)
-                // {
-                // ESP_LOGI(TAG, "Reading file");
-                // fp = fopen("/spiffs/output.rgb", "r");
-                // if (fp == NULL)
-                // {
-                // 	ESP_LOGE(TAG, "Failed to open file for reading");
-                // 	return;
-                // }
-                // printf("打开文件成功\n");
-                // fgets((char *)dis_buf, 100 * 100 * 2, fp);
-                // fclose(fp);
+                fb = esp_camera_fb_get();
+                if (fb == NULL)
+                {
+                    vTaskDelay(100);
+                    ESP_LOGE(TAG, "Get image failed!");
+                }
+                else
+                {
+                    if (Trace(&Condition[color_type], &Resu) && color_en == 1)
+                    {
+                        printf("x:%d y:%d w:%d h:%d ", Resu.x, Resu.y, Resu.w, Resu.h);
+                        if (Resu.x > 0 && Resu.y > 0)
+                        {
+                            draw_fillRect(fb, Resu.x - Resu.w / 2, Resu.y - Resu.h / 2, Resu.w, Resu.h);
+                        }
+                    }
+                    // static uint16_t i = 0;
+                    // if (i == 0)
+                    // {
+                    // ESP_LOGI(TAG, "Reading file");
+                    // fp = fopen("/spiffs/output.rgb", "r");
+                    // if (fp == NULL)
+                    // {
+                    // 	ESP_LOGE(TAG, "Failed to open file for reading");
+                    // 	return;
+                    // }
+                    // printf("打开文件成功\n");
+                    // fgets((char *)dis_buf, 100 * 100 * 2, fp);
+                    // fclose(fp);
 
-                // //ffmpeg -t 30 -i bad_apple_30.mp4 -vf "fps=10,scale=-1:100:flags=lanczos,crop=100:in_h:(in_w-100)/2:0,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -c:v rawvideo -pix_fmt rgb565be output.rgb
+                    // //ffmpeg -t 30 -i bad_apple_30.mp4 -vf "fps=10,scale=-1:100:flags=lanczos,crop=100:in_h:(in_w-100)/2:0,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -c:v rawvideo -pix_fmt rgb565be output.rgb
 
-                // fgets((char *)dis_buf, 100 * 100 * 2, fp);
+                    // fgets((char *)dis_buf, 100 * 100 * 2, fp);
 
-                img_dsc.data = fb->buf;
-                lv_img_set_src(img_cam, &img_dsc);
+                    img_dsc.data = fb->buf;
+                    lv_img_set_src(img_cam, &img_dsc);
 
-                // i++;
-                // if (i == 400)
-                // {
-                // 	i = 0;
-                // 	fclose(fp);
-                // }
-                esp_camera_fb_return(fb);
-                fb = NULL;
-                int64_t fr_end = esp_timer_get_time();
-                int64_t frame_time = fr_end - last_frame;
-                last_frame = fr_end;
-                frame_time /= 1000;
-                ESP_LOGI("esp", "MJPG:  %ums (%.1ffps)", (uint32_t)frame_time, 1000.0 / (uint32_t)frame_time);
-                // vTaskDelayUntil(&xLastWakeTime, (20 / portTICK_RATE_MS));
+                    // i++;
+                    // if (i == 400)
+                    // {
+                    // 	i = 0;
+                    // 	fclose(fp);
+                    // }
+                    esp_camera_fb_return(fb);
+                    fb = NULL;
+                    int64_t fr_end = esp_timer_get_time();
+                    int64_t frame_time = fr_end - last_frame;
+                    last_frame = fr_end;
+                    frame_time /= 1000;
+                    ESP_LOGI("esp", "MJPG:  %ums (%.1ffps)", (uint32_t)frame_time, 1000.0 / (uint32_t)frame_time);
+                    // vTaskDelayUntil(&xLastWakeTime, (20 / portTICK_RATE_MS));
+                }
             }
         }
         else
         {
             if (fb)
+            {
+                esp_camera_fb_return(fb);
                 free(fb);
+            }
+
             fb = NULL;
             vTaskDelete(NULL);
         }
@@ -221,7 +228,7 @@ void page_cam_load()
 void page_cam_end(void)
 {
     cam_en = 0, color_en = 0, face_en = 0;
-    vTaskDelay(500);
+    vTaskDelay(200);
     esp_camera_deinit();
     obj_add_anim(
         img_cam,                           //动画对象
@@ -232,6 +239,11 @@ void page_cam_end(void)
         lv_anim_path_linear                //动画特效:模拟弹性物体下落
     );
     ANIEND
+    if (fb)
+    {
+        esp_camera_fb_return(fb);
+        free(fb);
+    }
     lv_obj_del(img_cam);
 }
 extern en_fsm_state g_state;
@@ -246,5 +258,3 @@ void page_cam_start(void)
     printf("%s !Dram: %d bytes\r\n", __func__, heap_caps_get_free_size(MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT));
     page_cam_load();
 }
-
-

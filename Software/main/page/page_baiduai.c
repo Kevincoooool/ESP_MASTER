@@ -4,8 +4,8 @@
  * @Author       : Kevincoooool
  * @Date         : 2021-06-05 10:13:51
  * @LastEditors  : Kevincoooool
- * @LastEditTime : 2021-08-25 15:00:15
- * @FilePath     : \esp-idf\pro\KSDIY_ESPCAM\main\page\page_baiduai.c
+ * @LastEditTime : 2021-10-12 11:14:02
+ * @FilePath     : \esp-idf-v4.3.1\pro\esp_master\main\page\page_baiduai.c
  */
 #include "page_baiduai.h"
 #include "page_wakeup.h"
@@ -713,8 +713,14 @@ void BaiduAI_Task(void *pvParameters)
 		}
 		else
 		{
+			if (fb)
+            {
+                esp_camera_fb_return(fb);
+                free(fb);
+            }
+            fb = NULL;
+            vTaskDelete(NULL);
 
-			vTaskDelete(NULL);
 		}
 	}
 
@@ -801,7 +807,13 @@ void page_baiduai_end(void)
 	);
 	ANIEND
 	lv_obj_del(img_baiduai);
+	
 	esp_camera_deinit();
+	if (fb)
+            {
+                esp_camera_fb_return(fb);
+                free(fb);
+            }
 }
 extern en_fsm_state g_state;
 
