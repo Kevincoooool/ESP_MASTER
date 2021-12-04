@@ -1,4 +1,0 @@
-
-[submodule "Software/components/esp-sr"]
-	path = Software/components/esp-sr
-	url = https://github.com/espressif/esp-sr.git
