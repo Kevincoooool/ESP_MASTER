@@ -58,13 +58,17 @@ This is a comprehensive project that combines the powerful computing capabilitie
 
 - 阿里汉仪智能黑体
 
-## Firmware Guide
+## Firmware Build Guide
+
+ESP-IDF  version:V4.3
 
 ```
 git clone https://github.com/Kevincoooool/ESP_MASTER
 cd ESP_MASTER
 git submodule init 
 git submodule update 
+
+idf.py build
 ```
 
 ## Pic:
