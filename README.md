@@ -1,3 +1,4 @@
+
 # ESP_MASTER
 
 <img src="https://komarev.com/ghpvc/?username=ESPMASTER" alt="ESPMASTER" />
@@ -56,6 +57,16 @@ This is a comprehensive project that combines the powerful computing capabilitie
 ## Font
 
 - 阿里汉仪智能黑体
+
+## Firmware Guide
+
+```
+git clone https://github.com/Kevincoooool/ESP_MASTER
+cd ESP_MASTER
+git submodule init 
+git submodule update 
+```
+
 ## Pic:
 
 <img src="https://whycan.com/files/members/4115/%E6%AD%A3%E9%9D%A2.jpg" height="500px" width="800px" title="正面" style="display:inherit;"/> 
